@@ -2,11 +2,13 @@ using MedicationSchedule.Service.IoC;
 
 var builder = WebApplication.CreateBuilder(args);
 
-builder.Services.AddControllers();
-
 SerilogConfigurator.ConfigureService(builder);
 SwaggerConfigurator.ConfigureServices(builder);
 DbContextConfigurator.ConfigureServices(builder);
+MapperConfigurator.ConfigureServices(builder);
+ServicesConfigurator.ConfigureServices(builder);
+
+builder.Services.AddControllers();
 
 var app = builder.Build();
 

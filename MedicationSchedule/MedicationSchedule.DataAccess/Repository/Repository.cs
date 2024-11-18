@@ -7,9 +7,9 @@ namespace MedicationSchedule.DataAccess.Repository;
 
 public class Repository<T> : IRepository<T> where T : BaseEntity
 {
-    private readonly IDbContextFactory<DbContext> _contextFactory;
+    private readonly IDbContextFactory<MedicationScheduleDbContext> _contextFactory;
     
-    public Repository(IDbContextFactory<DbContext> contextFactory)
+    public Repository(IDbContextFactory<MedicationScheduleDbContext> contextFactory)
     {
         _contextFactory = contextFactory;
     }
@@ -17,7 +17,7 @@ public class Repository<T> : IRepository<T> where T : BaseEntity
     public IQueryable<T> GetAll()
     {
         using var dbContext = _contextFactory.CreateDbContext();
-        return dbContext.Set<T>();
+        return dbContext.Set<T>().ToList().AsQueryable();
     }
 
     public IQueryable<T> GetAll(Expression<Func<T, bool>> predicate)
